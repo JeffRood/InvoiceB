@@ -19,7 +19,7 @@ namespace InvoiceBE.Models
 
         public string Remark { get; set; }
 
-        [JsonIgnore]
+
         public ICollection<InvoiceDetails> Details { get; set; }
         [JsonIgnore]
         public virtual Client Clients { get; set; }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
@@ -73,17 +74,57 @@ namespace InvoiceBE.Controllers
 
         // POST: api/Invoices
         [ResponseType(typeof(Invoice))]
-        public IHttpActionResult PostInvoice(Invoice invoice)
+        public IHttpActionResult PostInvoice(Invoice invoice )
        {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            db.Invoices.Add(invoice);
-            db.SaveChanges();
+            Invoice Factura = new Invoice();
+            List<SqlParameter> parameters = new List<SqlParameter>
+            {
+                new SqlParameter("EmployeeID", invoice.EmployeeID),
+                new SqlParameter("ClientID", invoice.ClientID),
+                new SqlParameter("Date", invoice.Date),
+                new SqlParameter("Remark", " "),
+            };
 
-            return CreatedAtRoute("DefaultApi", new { id = invoice.InvoiceID }, invoice);
+            try
+            {
+                Factura = db.Database.SqlQuery<Invoice>("Crear_Factura @EmployeeID, @ClientID, @Date, @Remark", parameters.ToArray()).SingleOrDefault();
+
+                if(invoice.Details == null)
+                {
+                    return Json(Factura);
+                }
+                else
+                {
+                    List<SqlParameter> parameters2 = new List<SqlParameter>();
+                    foreach (var detalle in invoice.Details) 
+                    {
+                        parameters2.Add(new SqlParameter("DetailID", Factura.InvoiceID));
+                        parameters2.Add(new SqlParameter("ProductID", detalle.ProductID));
+                        parameters2.Add(new SqlParameter("Quantity", detalle.Quantity));
+
+
+                        
+                        db.Database.SqlQuery<InvoiceDetails>("Crear_Factura_Detalle @DetailID, @ProductID, @Quantity ", parameters2.ToArray()).ToList();
+
+                        parameters2.Clear();
+
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+
+                throw new Exception(ex.Message);
+            }
+
+            return Json(Factura);
+
+            // return CreatedAtRoute("DefaultApi", new { id = invoice.InvoiceID }, invoice);
         }
 
         // DELETE: api/Invoices/5
