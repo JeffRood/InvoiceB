@@ -21,5 +21,7 @@ namespace InvoiceBE.ContextDB
         public System.Data.Entity.DbSet<InvoiceBE.Models.Invoice> Invoices { get; set; }
 
         public System.Data.Entity.DbSet<InvoiceBE.Models.InvoiceDetails> InvoiceDetails { get; set; }
+
+        public System.Data.Entity.DbSet<InvoiceBE.Models.Login> Logins { get; set; }
     }
 }

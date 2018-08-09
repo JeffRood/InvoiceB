@@ -369,7 +369,6 @@ C:\Users\j.martinez\Desktop\Tareas\facturar\Backend\InvoiceBE\bin\Microsoft.Owin
 C:\Users\j.martinez\Desktop\Tareas\facturar\Backend\InvoiceBE\bin\Microsoft.Owin.Security.Twitter.xml
 C:\Users\j.martinez\Desktop\Tareas\facturar\Backend\InvoiceBE\bin\Microsoft.Owin.Security.MicrosoftAccount.xml
 C:\Users\j.martinez\Desktop\Tareas\facturar\Backend\InvoiceBE\bin\System.Web.Http.Owin.xml
-C:\Users\j.martinez\Desktop\Tareas\facturar\Backend\InvoiceBE\obj\Debug\InvoiceBE.csprojAssemblyReference.cache
 C:\Users\j.martinez\Desktop\Tareas\facturar\Backend\InvoiceBE\obj\Debug\InvoiceBE.csproj.CoreCompileInputs.cache
 C:\Users\j.martinez\Desktop\Tareas\facturar\Backend\InvoiceBE\obj\Debug\InvoiceBE.csproj.CopyComplete
 C:\Users\j.martinez\Desktop\Tareas\facturar\Backend\InvoiceBE\obj\Debug\InvoiceBE.dll
