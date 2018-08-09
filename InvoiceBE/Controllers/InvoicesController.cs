@@ -19,22 +19,46 @@ namespace InvoiceBE.Controllers
         private InvoiceContext db = new InvoiceContext();
 
         // GET: api/Invoices
-        public IQueryable<Invoice> GetInvoices()
+        [ResponseType(typeof(Factura))]
+        public IHttpActionResult GetInvoices()
         {
-            return db.Invoices;
+            List<Factura> Invoices = null;
+
+            try
+            {
+                Invoices = db.Database.SqlQuery<Factura>("Consulta_Factura_Master").ToList();
+
+                if (Invoices == null)
+                {
+                    return NotFound();
+                }
+            }
+            catch (Exception ex )
+            {
+
+                throw new Exception(ex.Message);
+            }
+       
+
+            return Json(Invoices);
         }
 
         // GET: api/Invoices/5
-        [ResponseType(typeof(Invoice))]
+        [ResponseType(typeof(Factura_Detalle))]
         public IHttpActionResult GetInvoice(int id)
         {
-            Invoice invoice = db.Invoices.Find(id);
-            if (invoice == null)
+            List<Factura_Detalle> invoicedetail = new List<Factura_Detalle>();
+            List<SqlParameter> parameters = new List<SqlParameter>
+            {
+                new SqlParameter("InvoiceID", id),
+            };
+             invoicedetail = db.Database.SqlQuery<Factura_Detalle>("Consulta_Factura @InvoiceID", parameters.ToArray()).ToList();
+            if (invoicedetail == null)
             {
                 return NotFound();
             }
 
-            return Ok(invoice);
+            return Json(invoicedetail);
         }
 
         // PUT: api/Invoices/5
