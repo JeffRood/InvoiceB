@@ -6,6 +6,13 @@ using System.Web;
 
 namespace InvoiceBE.Models
 {
+    public class Factura
+    {
+        public int InvoiceID { get; set; }
+        public string Date { get; set; }
+        public string Cliente { get; set; }
+        public string Empleado { get; set; }
+    }
     public class Invoice
     {
         [key]
